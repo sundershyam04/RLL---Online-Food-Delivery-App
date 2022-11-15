@@ -1,0 +1,314 @@
+﻿@model List<HungerHunt.Food>
+@using HungerHunt.Controllers;
+@using System;
+@using System.Collections.Generic;
+@using System.Data.SqlClient;
+@using System.Web.Mvc;
+@using System.Data.SqlClient;
+@using WebMatrix.Data;
+
+@{
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AdminHome</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: '@Url.Action("Graph","Admin")',
+                success: function (result) {
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart(result);
+                    });
+                }
+            });
+        });
+
+        function drawChart(result) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'OrderDate');
+            data.addColumn('number', 'OrderItemQty');
+
+            for (var i = 0; i < result.length; i++) {
+                var date = new Date(parseInt(result[i].OrderDate.substr(6)));
+                data.addRow([new Date(date), result[i].OrderItemQty]);
+            }
+
+            var columnChartOptions = {
+                fontSize: 16,
+                lineWidth: 5,
+                title: 'Items',
+                width: 750,
+                height: 400
+            }
+
+            var columnChart = new google.visualization.LineChart(document.getElementById('chart'));
+            columnChart.draw(data, columnChartOptions);
+        }
+    </script>
+</head>
+<body>
+    <style type="text/css">
+        table {
+            font-family: MyFont, sans-serif;
+            font-weight: bold;
+            border-collapse: collapse;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+            font-size: 20px;
+            background-color: #FFFFFF;
+        }
+
+        .chart-container img {
+            width: 700px;
+            height: 400px;
+        }
+
+        .header-center-red {
+            color: red;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+            font-family: MyFont, sans-serif;
+            font-weight: 500;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .header-center-green {
+            color: green;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+            font-family: MyFont, sans-serif;
+            font-weight: 500;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .header-center {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 150px;
+            font-family: MyFont, sans-serif;
+            font-weight: 500;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+        }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 40px;
+                width: 40px;
+                left: 4px;
+                bottom: 5px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+        input:checked + .slider {
+            background-color: limegreen;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px limegreen;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(50px);
+            -ms-transform: translateX(50px);
+            transform: translateX(50px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 50px;
+        }
+
+            .slider.round:before {
+                border-radius: 50%;
+            }
+    </style>
+
+    <div class="card">
+        <h2 style="font-size:40px;">Dashboard</h2>
+        @{
+            HungerHuntEntities foodContext = new HungerHuntEntities();
+            Menu menu = foodContext.Menus.Find(Session["AdminMenuId"]);
+
+            <div style="position:relative;left:0; height:auto;">
+                <p>@menu.MenuName</p>
+
+                @using (Html.BeginForm("AdminHome", "Admin", FormMethod.Post))
+                {
+
+                    if (menu.MenuAvailable == true)
+                    {
+                        <input type="text" id="MenuAvailable" name="MenuAvailable" value="true" hidden />
+                        <p style="color:green;">Accepting Orders</p>
+                        <label class="switch" style="margin-top: 20px; position: absolute;">
+                            <input type="checkbox" onclick="this.closest('form').submit();" checked value="1">
+                            <span class="slider round"></span>
+                        </label>
+                    }
+                    else
+                    {
+                        <input type="text" id="MenuAvailable" name="MenuAvailable" value="false" hidden />
+                        <p style="color:red;">Currently Not Accepting Orders</p>
+                        <label class="switch" style="margin-top: 20px; position: absolute;">
+                            <input type="checkbox" onclick="this.closest('form').submit();" value="0">
+                            <span class="slider round"></span>
+                        </label>
+                    }
+                }
+
+                <a><img src="@menu.MenuLogoUrl" style="width: 200px; height: 200px; position: relative; margin-left:600px; margin-top: -120px;" /></a>
+            </div>
+            <br />
+            <hr />
+            <div id="chart"></div>
+            <br />
+            <hr />
+
+            long totalEarnings = 0;
+            string bestSeller = null;
+            long totalOrders = 0;
+
+            SqlConnection sqlConnection = new SqlConnection(CustomerController.connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand("SELECT SUM(OI.OrderItemUnitPrice * OI.OrderItemQty), SUM(OI.OrderItemQty), (SELECT FoodName FROM Foods WHERE FoodId = (SELECT TOP 1 OrderItemFoodId FROM OrderItems OI INNER JOIN Foods F ON OI.OrderItemFoodId = F.FoodId WHERE F.FoodMenuId = " + long.Parse(Session["AdminMenuId"].ToString()) + " GROUP BY OrderItemFoodId ORDER BY SUM(OrderItemQty) DESC)) FROM Foods F INNER JOIN OrderItems OI ON F.FoodId = OI.OrderItemFoodId WHERE F.FoodMenuId = " + long.Parse(Session["AdminMenuId"].ToString()) + ";", sqlConnection);
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+
+            while (sqlDataReader.Read())
+            {
+                try
+                {
+                    totalEarnings = long.Parse(sqlDataReader[0].ToString());
+                    totalOrders = long.Parse(sqlDataReader[1].ToString());
+                    bestSeller = sqlDataReader[2].ToString();
+                }
+                catch (Exception)
+                {
+                    totalEarnings = 0;
+                    bestSeller = "N/A";
+                    totalOrders = 0;
+                }
+            }
+
+            sqlConnection.Close();
+
+            <div style="position:relative;">
+                <p>Total Earnings</p>
+                <p>Rs @totalEarnings</p>
+
+                <p>Best Seller</p>
+                <p>@bestSeller</p>
+
+                <p>Total Items Sold</p>
+                <p>@totalOrders</p>
+            </div>
+
+            <hr />
+        }
+
+        @if (@Model.Count == 0)
+        {
+            <h2 class="header-center-green">No items to re-stock.</h2>
+        }
+        else
+        {
+            <h2 class="header-center-red">Some items are going out of stock. Please re-stock as soon as possible.</h2>
+
+            using (Html.BeginForm())
+            {
+                <table>
+                    <tr>
+                        <th>Food Name</th>
+                        <th>Food Category</th>
+                        <th>Food Unit Price</th>
+                        <th>Available Quantity</th>
+                        <th>Food Type</th>
+                        <th>Action</th>
+                    </tr>
+                    <!--Restock contents-->
+                    @foreach (Food food in @Model)
+                    {
+                        <tr>
+                            <td>@food.FoodName</td>
+                            <td>@food.FoodCategory</td>
+                            <td>Rs @food.FoodUnitPrice</td>
+                            <td>@food.FoodQty</td>
+                            @if (food.FoodType == "V")
+                            {
+                                <td>Veg</td>
+                            }
+                            else if (food.FoodType == "N")
+                            {
+                                <td>Non-Veg</td>
+                            }
+                            else
+                            {
+                                <td>Egg</td>
+                            }
+                            <td><a href="@Url.Action("Restock", "Admin", new { foodId = food.FoodId })" class="blue-link">Restock</a></td>
+                        </tr>
+                    }
+                </table>
+            }
+            <br />
+
+        }
+
+    </div>
+</body>
+</html>

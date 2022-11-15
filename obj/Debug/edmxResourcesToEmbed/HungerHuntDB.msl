@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HungerHuntModelStoreContainer" CdmEntityContainer="HungerHuntEntities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="HungerHuntModel.Admin">
+        <MappingFragment StoreEntitySet="Admins">
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="AdminUsername" ColumnName="AdminUsername" />
+          <ScalarProperty Name="AdminPhone" ColumnName="AdminPhone" />
+          <ScalarProperty Name="AdminFName" ColumnName="AdminFName" />
+          <ScalarProperty Name="AdminLName" ColumnName="AdminLName" />
+          <ScalarProperty Name="AdminPassword" ColumnName="AdminPassword" />
+          <ScalarProperty Name="AdminMenuId" ColumnName="AdminMenuId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CartItems">
+      <EntityTypeMapping TypeName="HungerHuntModel.CartItem">
+        <MappingFragment StoreEntitySet="CartItems">
+          <ScalarProperty Name="CartItemId" ColumnName="CartItemId" />
+          <ScalarProperty Name="CartItemCartId" ColumnName="CartItemCartId" />
+          <ScalarProperty Name="CartAddDate" ColumnName="CartAddDate" />
+          <ScalarProperty Name="CartItemQty" ColumnName="CartItemQty" />
+          <ScalarProperty Name="CartItemFoodId" ColumnName="CartItemFoodId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Carts">
+      <EntityTypeMapping TypeName="HungerHuntModel.Cart">
+        <MappingFragment StoreEntitySet="Carts">
+          <ScalarProperty Name="CartId" ColumnName="CartId" />
+          <ScalarProperty Name="CartCustId" ColumnName="CartCustId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="HungerHuntModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="CustId" ColumnName="CustId" />
+          <ScalarProperty Name="CustEmail" ColumnName="CustEmail" />
+          <ScalarProperty Name="CustPhone" ColumnName="CustPhone" />
+          <ScalarProperty Name="CustFName" ColumnName="CustFName" />
+          <ScalarProperty Name="CustLName" ColumnName="CustLName" />
+          <ScalarProperty Name="CustPassword" ColumnName="CustPassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Foods">
+      <EntityTypeMapping TypeName="HungerHuntModel.Food">
+        <MappingFragment StoreEntitySet="Foods">
+          <ScalarProperty Name="FoodId" ColumnName="FoodId" />
+          <ScalarProperty Name="FoodName" ColumnName="FoodName" />
+          <ScalarProperty Name="FoodQty" ColumnName="FoodQty" />
+          <ScalarProperty Name="FoodUnitPrice" ColumnName="FoodUnitPrice" />
+          <ScalarProperty Name="FoodCategory" ColumnName="FoodCategory" />
+          <ScalarProperty Name="FoodType" ColumnName="FoodType" />
+          <ScalarProperty Name="FoodPhotoUrl" ColumnName="FoodPhotoUrl" />
+          <ScalarProperty Name="FoodMenuId" ColumnName="FoodMenuId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Menus">
+      <EntityTypeMapping TypeName="HungerHuntModel.Menu">
+        <MappingFragment StoreEntitySet="Menus">
+          <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuAvailable" ColumnName="MenuAvailable" />
+          <ScalarProperty Name="MenuAddDate" ColumnName="MenuAddDate" />
+          <ScalarProperty Name="MenuModifyDate" ColumnName="MenuModifyDate" />
+          <ScalarProperty Name="MenuLogoUrl" ColumnName="MenuLogoUrl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderItems">
+      <EntityTypeMapping TypeName="HungerHuntModel.OrderItem">
+        <MappingFragment StoreEntitySet="OrderItems">
+          <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
+          <ScalarProperty Name="OrderItemOrderId" ColumnName="OrderItemOrderId" />
+          <ScalarProperty Name="OrderItemFoodId" ColumnName="OrderItemFoodId" />
+          <ScalarProperty Name="OrderItemQty" ColumnName="OrderItemQty" />
+          <ScalarProperty Name="OrderItemUnitPrice" ColumnName="OrderItemUnitPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="HungerHuntModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="OrderCustId" ColumnName="OrderCustId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,91 @@
+﻿@model HungerHunt.Admin
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AdminProfile</title>
+</head>
+<body>
+    <div class="card_form">
+        <h2 style="font-size:40px; text-align:center;">Update Profile</h2>
+        @using (Html.BeginForm("AdminProfile", "Admin", FormMethod.Post))
+        {
+            <input type="text" id="AdminId" name="AdminId" value="@Model.AdminId" hidden />
+            <table align="center">
+                <tr>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="AdminFName" name="AdminFName" pattern="^[a-zA-Z]{1,20}$" class="input-area" value="@Model.AdminFName" required />
+                            <label for="AdminFName" class="label">First Name</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-family:MyFont, sans-serif; font-weight:bold; font-size:20px; color:red;">
+                        @Html.ValidationMessage("AdminFName", "")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="AdminLName" name="AdminLName" pattern="^[a-zA-Z]{1,20}$" class="input-area" value="@Model.AdminLName" required />
+                            <label for="AdminLName" class="label">Last Name</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-family:MyFont, sans-serif; font-weight:bold; font-size:20px; color:red;">
+                        @Html.ValidationMessage("AdminLName", "")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="AdminUsername" name="AdminUsername" pattern="^(?=[a-z0-9._]{6,30}$)(?!.*[_.]{2})[^_.].*[^_.]$" class="input-area" value="@Model.AdminUsername" required />
+                            <label for="AdminUsername" class="label">Username</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-family:MyFont, sans-serif; font-weight:bold; font-size:20px; color:red;">
+                        @Html.ValidationMessage("AdminUsername", "")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="AdminPhone" name="AdminPhone" pattern="^[789]{1}[0-9]{9}$" class="input-area" value="@Model.AdminPhone" required />
+                            <label for="AdminPhone" class="label">Phone</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-family:MyFont, sans-serif; font-weight:bold; font-size:20px; color:red;">
+                        @Html.ValidationMessage("AdminPhone", "")
+                    </td>
+                </tr>
+            </table>
+            <div class="horizontal-flex-container" style="margin-bottom:40px; margin-top:40px;">
+                <a href="#" class="blue-button" style="position:relative; text-align:center; width:400px;" onclick="this.closest('form').submit();">Update</a>
+            </div>
+            if (ViewBag.Status == "KeyViolation")
+            {
+                <div class="danger-div">
+                    <p>Username/Phone Number Taken</p>
+                </div>
+            }
+            else 
+            {
+                <div class="success-div">
+                    <p>Updated successfully</p>
+                </div>
+            }
+        }
+    </div>
+</body>
+</html>

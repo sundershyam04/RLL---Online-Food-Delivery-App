@@ -1,0 +1,120 @@
+﻿@model HungerHunt.Food
+@{
+    ViewBag.Title = "AddNewItems";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>AddNewItems</h2>
+
+<body>
+    <div class="card_form">
+        <h2 style="font-size:40px; padding-left:20px;">Add New Item</h2>
+        @using (Html.BeginForm("AddNewItems", "Admin", FormMethod.Post))
+        {
+            <table align="center">
+                <tr>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="FoodName" name="FoodName" class="input-area" required />
+                            <label for="FoodName" class="label">Food Name</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:red;"> @Html.ValidationMessage("FoodName", "")</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-group">
+                            <input type="number" id="FoodQty" name="FoodQty" pattern="^[a-zA-Z]{1,20}$" class="input-area" required />
+                            <label for="FoodQty" class="label">Food Quantity</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:red;"> @Html.ValidationMessage("FoodQty", "")</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-group">
+                            <input type="number" id="FoodUnitPrice" name="FoodUnitPrice" class="input-area" required />
+                            <label for="FoodUnitPrice" class="label">Food Price</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:red;"> @Html.ValidationMessage("FoodUnitPrice", "")</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">
+                        <select id="FoodCategory" name="FoodCategory" style="height:60px; width:100%; font-size:20px; border-color:#03A9F4; padding:10px;">
+                            <option disabled>Select Food Category</option>
+                            <option value="Add Ons" selected>Add Ons</option>
+                            <option value="Breads">Breads</option>
+                            <option value="Cakes">Cakes</option>
+                            <option value="Chicken">Chicken</option>
+                            <option value="Desserts">Desserts</option>
+                            <option value="Divine">Divine</option>
+                            <option value="Favourite">Favourite</option>
+                            <option value="Meals">Meals</option>
+                            <option value="Pizza">Pizza</option>
+                            <option value="Regular Meal">Regular Meal</option>
+                            <option value="Rice">Rice</option>
+                            <option value="Spicy Meals">Spicy Meals</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:red;"> @Html.ValidationMessage("FoodCategory", "")</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">
+                        <select id="FoodType" name="FoodType" style="height:60px; width:100%; border-color:#03A9F4; font-size:20px; padding:10px; ">
+                            <option disabled>Select Food Type</option>
+                            <option value="V" selected>Veg</option>
+                            <option value="N">Non-Veg</option>
+                            <option value="E">Egg</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:red;"> @Html.ValidationMessage("FoodType", "")</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="FoodPhotoUrl" name="FoodPhotoUrl" required class="input-area" />
+                            <label for="FoodPhotoUrl" class="label">Food Photo Url</label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <br />
+            <div class="horizontal-flex-container" style="margin-bottom:40px;">
+                <a href="#" class="blue-button" style="position:relative; width:400px;" onclick="this.closest('form').submit();">Add</a>
+            </div>
+            <br />
+            <br />
+            if (ViewBag.Status == "FoodInvalid")
+            {
+                <div class="danger-div">
+                    <p>Food Invalid</p>
+                </div>
+            }
+            else if (ViewBag.Status == "FoodRegistered")
+            {
+                <div class="success-div">
+                    <p>Food Added</p>
+                </div>
+            }
+            else if (ViewBag.Status == "FoodExists")
+            {
+                <div class="danger-div">
+                    <p>Food Exists</p>
+                </div>
+            }
+        }
+    </div>
+</body>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d4536976297449688d607b04bd71a603" Name="Diagram1">
+        <EntityTypeShape EntityType="HungerHuntModel.Admin" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HungerHuntModel.CartItem" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HungerHuntModel.Cart" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HungerHuntModel.Customer" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HungerHuntModel.Food" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="HungerHuntModel.Menu" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HungerHuntModel.OrderItem" Width="1.5" PointX="8.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HungerHuntModel.Order" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="HungerHuntModel.FK_AdminMenu" ManuallyRouted="false" />
+        <AssociationConnector Association="HungerHuntModel.FK_CartItemCart" ManuallyRouted="false" />
+        <AssociationConnector Association="HungerHuntModel.FK_FoodCartItem" ManuallyRouted="false" />
+        <AssociationConnector Association="HungerHuntModel.FK_CustomerCart" ManuallyRouted="false" />
+        <AssociationConnector Association="HungerHuntModel.FK_CustomerOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="HungerHuntModel.FK_FoodMenu" ManuallyRouted="false" />
+        <AssociationConnector Association="HungerHuntModel.FK_FoodOrderItem" ManuallyRouted="false" />
+        <AssociationConnector Association="HungerHuntModel.FK_OrderOrderItem" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

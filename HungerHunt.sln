@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HungerHunt", "HungerHunt.csproj", "{D1DA7810-BDB0-4BD1-BEBA-19DBA21B61BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D1DA7810-BDB0-4BD1-BEBA-19DBA21B61BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1DA7810-BDB0-4BD1-BEBA-19DBA21B61BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1DA7810-BDB0-4BD1-BEBA-19DBA21B61BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1DA7810-BDB0-4BD1-BEBA-19DBA21B61BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {038BA745-2771-4C27-A5CC-BA591108E228}
+	EndGlobalSection
+EndGlobal

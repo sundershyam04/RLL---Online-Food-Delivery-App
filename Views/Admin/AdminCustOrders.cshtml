@@ -1,0 +1,71 @@
+﻿@model List<HungerHunt.Models.CustOrdersModel>
+@using HungerHunt.Controllers;
+@using System.Collections.Generic;
+@using System.Data.SqlClient;
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AdminCustOrders</title>
+</head>
+<body>
+    <div class="card">
+        <h2 style="font-size:40px;">Customer Orders</h2>
+        @{
+            SqlConnection sqlConnection = new SqlConnection(CustomerController.connectionString);
+            sqlConnection.Open();
+
+            foreach (HungerHunt.Models.CustOrdersModel custOrdersModel in Model)
+            {
+                <p>Order Id - @custOrdersModel.CustOrderId</p>
+                <p>Order Date - @custOrdersModel.CustOrderDate</p>
+                <p>Customer Id - @custOrdersModel.CustId</p>
+                <p>Customer Name - @custOrdersModel.CustName</p>
+
+                SqlCommand sqlCommand = new SqlCommand("SELECT F.FoodName, OI.OrderItemQty, OI.OrderItemUnitPrice, (OI.OrderItemQty * OI.OrderItemUnitPrice) FROM ORDERS O INNER JOIN ORDERITEMS OI ON OI.OrderItemOrderId = O.OrderId INNER JOIN FOODS F ON OI.OrderItemFoodId = F.FoodId WHERE O.OrderId = " + custOrdersModel.CustOrderId + " AND F.FoodMenuId = " + custOrdersModel.CustMenuId + " ORDER BY 3 DESC;", sqlConnection);
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                long totalBill = 0;
+
+                <table>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total Price</th>
+                    </tr>
+
+                    @while (sqlDataReader.Read())
+                    {
+                        <tr>
+                            <td>@sqlDataReader[0].ToString()</td>
+                            <td>@sqlDataReader[1].ToString()</td>
+                            <td>@sqlDataReader[2].ToString()</td>
+                            <td>@sqlDataReader[3].ToString()</td>
+                        </tr>
+
+                        totalBill += long.Parse(@sqlDataReader[3].ToString());
+                    }
+
+                    <tr style="border-top:1px solid; border-bottom:1px solid;">
+                        <td></td>
+                        <td></td>
+                        <td>Total (Rs) </td>
+                        <td>@totalBill</td>
+                    </tr>
+
+                </table>
+            }
+            
+            sqlConnection.Close();
+
+        }
+
+    </div>
+</body>
+</html>
